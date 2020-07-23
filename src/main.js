@@ -5,9 +5,11 @@ import store from './store'
 // import 'nprogress.css/nprogress.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import animated from "animate.css"
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(animated)
 new Vue({
   router,
   store,
