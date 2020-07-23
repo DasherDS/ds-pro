@@ -1,15 +1,15 @@
 <template>
-  <div class="hello">
-    
+  <div>
+      这是一个登陆页面
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  
+    name:'Login'
 }
 </script>
-<style lang="scss" scoped>
+
+<style>
 
 </style>
