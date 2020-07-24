@@ -1,0 +1,179 @@
+@import 'global';
+//=======color========
+.color-white{
+	color: $color-white;
+}
+.bg-white{
+	background-color: $color-white;
+}
+.color-blue{
+	color: $color-blue;
+}
+.color-black{
+	color: $color-black;
+}
+.color-orange{
+	color: $color-orange;
+}
+.color-grey{
+	color: $color-grey;
+}
+.color-red{
+	color: $color-red;
+}
+.color-gold{
+	color: $color-gold;
+}
+.floatl{
+  float: left;
+}
+.floatr{
+  float: right;
+}
+.inline{
+	display: inline-block;
+}
+.ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.clearfix:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+//=======container====
+.container-min{
+	width: $width-screen-min;
+}
+//====margin=====
+.margin-auto-h,.mh-auto{
+	margin: 0 auto;
+}
+.mv-auto{
+  margin: auto 0;
+}
+.m-auto{
+  margin: auto;
+}
+.ml-auto{
+	margin-right: auto;
+}
+.mr-auto{
+	margin-left: auto;
+}
+@for $i from 1 through 40 {
+  .mt#{$i*5} {
+    margin-top: 5px * $i;
+  }
+}
+
+@for $i from 1 through 40 {
+  .mb#{$i*5} {
+    margin-bottom: 5px * $i;
+  }
+}
+
+@for $i from 1 through 40 {
+  .ml#{$i*5} {
+    margin-left: 5px * $i;
+  }
+}
+
+@for $i from 0 through 40 {
+  .mr#{$i*5} {
+    margin-right: 5px * $i;
+  }
+}
+
+//===== padding====
+@for $i from 1 through 40 {
+  .pt#{$i*5} {
+    padding-top: 5px * $i;
+  }
+}
+
+@for $i from 1 through 40 {
+  .pb#{$i*5} {
+    padding-bottom: 5px * $i;
+  }
+}
+
+@for $i from 1 through 40 {
+  .pl#{$i*5} {
+    padding-left: 5px * $i;
+  }
+}
+
+@for $i from 1 through 40 {
+  .pr#{$i*5} {
+    padding-right: 5px * $i;
+  }
+}
+
+//===== flex
+.flex{
+	display: flex;
+}
+.flex1{
+	flex: 1;
+}
+.between{
+	@extend .flex;
+	justify-content: space-between;
+}
+.around{
+	@extend .flex;
+	justify-content: space-around;
+}
+.horizontal-center{
+	@extend .flex;
+	justify-content: center;
+}
+.vertical-center{
+	@extend  .flex;
+	align-items: center;
+}
+.horizontal-right{
+	@extend .flex;
+	justify-content: flex-end;
+}
+//=====font====
+@for $i from 10 through 40 {
+  .size#{$i} {
+    font-size: 1px * $i;
+  }
+}
+.pointer{
+	cursor: pointer;
+}
+.bold{
+	font-weight: bold;
+}
+.nowrap{
+  white-space: nowrap;
+}
+
+.txtc{
+	text-align: center;
+}
+.txtr{
+	text-align: right;
+}
+.txtl{
+	text-align: left;
+}
+.hr{
+	border-top-width: 0;
+	border-color: $color-grey-light;
+}
+.full-width{
+	width: 100%;
+}
+.full-height{
+	height: 100%;
+}
+.el-header{
+	background-color: $color-blue;
+}

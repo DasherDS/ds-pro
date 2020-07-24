@@ -4,16 +4,34 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path:'/',
+    redirect:'/home'
   },
   {
-    path:'/login',
-    name:'Login',
-    component: ()=>import("../views/login/index.vue")
+    path: '/home',
+    name: 'Home',
+    meta:{
+      index:0
+    },
+    component: Home,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta:{
+      index:1
+    },
+    component: () => import("../views/login/index.vue")
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    meta:{
+      index:2
+    },
+    component: () => import("../views/register/index.vue")
   },
   {
     path: '/about',
