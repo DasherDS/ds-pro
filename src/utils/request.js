@@ -5,7 +5,8 @@ import {getToken} from '@/utils/auth'
 
 //创建axios实例
 const service = axios.create({
-    baseURL:process.env.BASE_API,
+    // baseURL:process.env.BASE_API,
+    baseURL:'http://rap2.taobao.org:38080/app/mock/262015',
     timeout:15000
 })
 

@@ -13,6 +13,9 @@ export default {
       transitionName: ""
     };
   },
+  mounted() {
+   
+  },
   watch: {
     $route(to, from) {
       // console.log(to, from);
@@ -27,8 +30,11 @@ export default {
 };
 </script>
 <style lang="scss">
+#app {
+  min-width: 540px;
+}
 * {
-  font-family: "等线";
+  // font-family: "等线";
   margin: 0;
   padding: 0;
   box-sizing: border-box;
