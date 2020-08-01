@@ -18,6 +18,14 @@ const routes = [
     component: Home,
   },
   {
+    path:'/dasher/index',
+    name:'DasherIndex',
+    meta:{
+      index:3
+    },
+    component:()=>import("../views/DasherIndex/index.vue")
+  },
+  {
     path: '/login',
     name: 'Login',
     meta:{

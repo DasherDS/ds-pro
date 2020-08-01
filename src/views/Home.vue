@@ -18,7 +18,10 @@ export default {
     return {};
   },
   methods: {},
-  mounted() {}
+  mounted() {
+    console.log(this.$store.state);
+    
+  }
 };
 </script>
 

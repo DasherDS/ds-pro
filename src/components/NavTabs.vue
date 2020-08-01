@@ -4,8 +4,8 @@
       <div v-show="istabnav" class="main-content-tabnav">
         <ul class="main-content-tabnav-ul">
           <li>
-            <router-link class="jumpTo" to="./home">
-              首页
+            <router-link class="jumpTo" to="/dasher/index">
+              主页
               <p>HOME</p>
             </router-link>
           </li>
@@ -33,16 +33,19 @@
               <p>TOOLS</p>
             </router-link>
           </li>
-          <li v-if="isbtn">
-            <div>
-              <el-button class="btn" type="text">登录/注册</el-button>
-            </div>
-          </li>
         </ul>
-        <div class="main-content-tabnav-mid" v-if="!isbtn">
-          <div></div>
+        <div class="main-content-tabnav-mid" v-if="isLogin">
+          <div class="main-content-tabnav-mid-lohininfo">
+            <span>
+              <router-link to="/dasher/index">
+                <span class="color-blue">欢迎您~~</span>
+                <span class="color-gold">{{info.adminName}}</span>
+              </router-link>
+            </span>
+            <span class="color-red ml20 mr5 size10 loginout" @click="loginout">退出登录</span>
+          </div>
         </div>
-        <ul class="main-content-tabnav-user" v-if="!isbtn">
+        <ul class="main-content-tabnav-user" v-if="!isLogin">
           <li>
             <router-link class="jumpTo" to="./login">Sign in</router-link>
           </li>
@@ -56,6 +59,8 @@
 </template>
 
 <script>
+// import { login } from '../api/login';
+import { getToken, removeToken, removeName } from "../utils/auth";
 export default {
   name: "NavTabs",
   data() {
@@ -64,7 +69,10 @@ export default {
       clientHeight: null,
       scoll: "",
       istabnav: false,
-      isbtn: false
+      isLogin: false,
+      info: {
+        adminName: ""
+      }
     };
   },
   beforeMount() {},
@@ -72,13 +80,28 @@ export default {
     menu() {
       this.scoll =
         document.documentElement.scrollTop || document.body.scrollTop;
-      this.scoll >= 100 ? (this.istabnav = true) : (this.istabnav = false);
+      this.scoll >= 0 ? (this.istabnav = true) : (this.istabnav = false);
     },
-    btn() {}
+    btn() {},
+    loginout() {
+      this.$store.state.user.token = "";
+      this.info.adminName = "";
+      const token = getToken("token");
+      removeName("username");
+      removeToken(token);
+      this.isLogin = false;
+    }
   },
   mounted() {
     this.menu();
+    this.isLogin = false;
     window.addEventListener("scroll", this.menu);
+    let vuexState = this.$store.state;
+    if (vuexState.user.token != undefined) {
+      this.isLogin = true;
+      this.info.adminName = vuexState.user.name;
+      console.log(this.isLogin, this.info.adminName);
+    }
   }
 };
 </script>
@@ -94,7 +117,6 @@ export default {
   opacity: 0;
 }
 .main-content {
-  
   height: 100vh;
   position: relative;
   &-tabnav {
@@ -127,11 +149,15 @@ export default {
         color: #d3b145;
       }
     }
-    &-mid > div {
-      margin-top: 12px;
-      border-left: 3px solid #d3b145;
-      width: 2px;
-      height: 70%;
+    &-mid {
+      text-align: left;
+      margin: 0 auto;
+      line-height: 100px;
+      &-lohininfo {
+      }
+      .loginout {
+        cursor: pointer;
+      }
     }
     &-user {
       width: 200px;

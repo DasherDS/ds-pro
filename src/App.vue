@@ -3,6 +3,7 @@
     <transition :name="transitionName">
       <router-view />
     </transition>
+    <el-backtop class="backtop">🗼</el-backtop>
   </div>
 </template>
 <script>
@@ -13,9 +14,7 @@ export default {
       transitionName: ""
     };
   },
-  mounted() {
-   
-  },
+  mounted() {},
   watch: {
     $route(to, from) {
       // console.log(to, from);
@@ -32,6 +31,10 @@ export default {
 <style lang="scss">
 #app {
   min-width: 540px;
+  font-size: 14px;
+  .backtop{
+    position: fixed;
+  }
 }
 * {
   // font-family: "等线";

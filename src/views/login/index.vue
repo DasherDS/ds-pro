@@ -12,32 +12,44 @@
           :rules="rules"
           ref="loginForm"
           label-width="100px"
+          @submit.native.prevent
           class="demo-loginForm"
         >
           <el-form-item label="账号" prop="admin">
-            <el-input type="text" v-model="loginForm.admin" autocomplete="off"></el-input>
+            <el-input
+              type="text"
+              v-model="loginForm.admin"
+              autocomplete="off"
+              @keyup.enter.native="login('loginForm')"
+            ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="loginForm.pass" autocomplete="off"></el-input>
+            <el-input
+              type="password"
+              v-model="loginForm.pass"
+              autocomplete="off"
+              @keyup.enter.native="login('loginForm')"
+            ></el-input>
           </el-form-item>
+          <div class="register mt40">
+            <span>没有账户?</span>
+            <span class="ml5">
+              <router-link class="color-blue" to="/register">创建一个!</router-link>
+            </span>
+          </div>
+          <div class="mb20 btnsub">
+            <el-button type="primary" class="floatr" @click="login('loginForm')">登录</el-button>
+          </div>
+          <div class="mt20"></div>
         </el-form>
-        <div class="register mt40">
-          <span>没有账户?</span>
-          <span class="ml5">
-            <router-link class="color-blue" to="/register">创建一个!</router-link>
-          </span>
-        </div>
-        <div class="mb20 btnsub">
-          <el-button type="primary" class="floatr" @click="login('loginForm')">登录</el-button>
-        </div>
-        <div class="mt20"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {login} from "../../api/login"
+import { login } from "../../api/login";
+import { setToken, setName } from "../../utils/auth";
 export default {
   name: "Register",
   data() {
@@ -48,13 +60,13 @@ export default {
         callback();
       }
     };
-    var checkPass =  (rule, value, callback) => {
+    var checkPass = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("密码不能为空"));
       } else {
         callback();
       }
-    }
+    };
     return {
       loginForm: {
         admin: null,
@@ -66,23 +78,34 @@ export default {
       }
     };
   },
+  mounted() {
+    console.log(this.$store.state);
+  },
   methods: {
     login(formName) {
       // console.log(this.$refs[formName].validat.valide);
       this.$refs[formName].validate(valid => {
         if (valid) {
-          login(this.loginForm).then(res=>{
-            console.log(res);
-            
-          })
-          this.$router.push({
-            name:"Home"
-          })
+          login(this.loginForm)
+            .then(res => {
+              console.log(res);
+              const token = res.data.token;
+              const name = res.data.admin;
+              setToken(token);
+              setName(name);
+              this.$store.commit("SET_TOKEN", token);
+              this.$store.commit("SET_NAME", name);
+            })
+            .then(() => {
+              this.$router.push({
+                name: "DasherIndex"
+              });
+            });
         } else {
           this.$message({
-            type:'warning',
-            message:'账号或密码不能为空'
-          })
+            type: "warning",
+            message: "账号或密码不能为空"
+          });
           return false;
         }
       });
@@ -127,7 +150,6 @@ export default {
     }
     .btnsub {
       height: 40px;
-      padding-right: 70px;
     }
   }
 }
